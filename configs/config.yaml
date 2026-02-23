@@ -1,0 +1,71 @@
+# @package _global_
+
+defaults:
+  - _self_
+
+# Data configuration
+data:
+  sample_rate: 16000
+  frame_size: 1024
+  hop_length: 512
+  n_fft: 2048
+  n_mels: 80
+  preemphasis: 0.97
+  
+# VAD configuration
+vad:
+  energy_threshold: 0.02
+  spectral_threshold: 0.3
+  zero_crossing_threshold: 0.1
+  min_speech_duration: 0.1  # seconds
+  min_silence_duration: 0.1  # seconds
+  smoothing_window: 3
+  
+# Segmentation configuration
+segmentation:
+  boundary_threshold: 0.5
+  min_segment_duration: 0.2  # seconds
+  max_segment_duration: 10.0  # seconds
+  overlap_threshold: 0.1
+  
+# Model configuration
+model:
+  name: "energy_based"  # or "ml_based", "tcn_based"
+  hidden_dim: 128
+  num_layers: 3
+  dropout: 0.1
+  
+# Training configuration
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  num_epochs: 100
+  early_stopping_patience: 10
+  validation_split: 0.2
+  
+# Evaluation configuration
+evaluation:
+  metrics: ["precision", "recall", "f1", "der", "jer"]
+  collar_tolerance: 0.25  # seconds
+  
+# Paths
+paths:
+  data_dir: "data"
+  wav_dir: "data/wav"
+  meta_file: "data/meta.csv"
+  output_dir: "assets"
+  checkpoint_dir: "checkpoints"
+  
+# Device configuration
+device: "auto"  # auto, cpu, cuda, mps
+
+# Logging
+logging:
+  level: "INFO"
+  log_dir: "logs"
+  
+# Privacy and ethics
+privacy:
+  anonymize_filenames: true
+  remove_pii_from_logs: true
+  research_only: true
